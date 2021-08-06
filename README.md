@@ -44,7 +44,7 @@ const Media = {
       },
     },
     adminThumbnail: ({ doc }) =>
-      `https://my-bucket.s3.eu-west-3.amazonaws.com/images/${doc.filename}`,
+      `https://my-bucket.s3.eu-west-3.amazonaws.com/images/xyz/${doc.filename}`,
   },
 };
 
