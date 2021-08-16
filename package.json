@@ -1,6 +1,6 @@
 {
   "name": "payload-s3-upload",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "lib/index.js",
   "author": "Jean-Baptiste Martin",
   "dependencies": {
