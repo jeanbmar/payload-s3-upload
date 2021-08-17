@@ -34,6 +34,7 @@ const Media = {
   upload: {
     staticURL: '/assets',
     staticDir: 'assets',
+    disableLocalStorage: true,
     s3: {
       bucket: 'my-bucket',
       prefix: 'images/xyz', // files will be stored in bucket folder images/xyz

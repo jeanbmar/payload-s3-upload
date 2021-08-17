@@ -4,7 +4,8 @@
   "main": "lib/index.js",
   "author": "Jean-Baptiste Martin",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.24.0"
+    "@aws-sdk/client-s3": "^3.24.0",
+    "sanitize-filename": "^1.6.3"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
