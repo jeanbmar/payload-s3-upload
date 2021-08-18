@@ -1,5 +1,8 @@
 # Upload files to S3 in Payload CMS
 
+This plugin ensures safe filenames with PayloadCMS database.  
+Resized images are properly supported.
+
 ## Install
 
 `npm install payload-s3-upload`
