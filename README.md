@@ -51,6 +51,25 @@ const Media = {
     adminThumbnail: ({ doc }) =>
       `https://my-bucket.s3.eu-west-3.amazonaws.com/images/xyz/${doc.filename}`,
   },
+  // create a field to access uploaded files in s3 from payload api
+  fields: [
+    {
+      name: 'url',
+      type: 'text',
+      access: {
+        create: () => false,
+      },
+      admin: {
+        disabled: true,
+      },
+      hooks: {
+        afterRead: [
+          ({ data: doc }) =>
+            `https://my-bucket.s3.eu-west-3.amazonaws.com/images/${doc.type}/${doc.filename}`,
+        ],
+      },
+    },
+  ],
 };
 
 export default Media;
