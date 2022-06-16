@@ -74,3 +74,58 @@ const Media = {
 
 export default Media;
 ```
+
+#### Working with image sizes
+
+If you want to configure image sizes, the plugin will automatically upload your variants on the S3 bucket too. However, in order for your API endpoint to return the correct URL for these sizes, you'll have to configure the hook on the collection level.
+
+Here's an example :
+
+```js
+
+const myBucketUrl = 'https://my-bucket.s3.eu-west-3.amazonaws.com/images/xyz'
+
+const Media = {
+  slug: 'media',
+  upload: {
+    // some properties omitted, see previous example
+    imageSizes: [
+      {
+        name: 'thumbnail',
+        width: 400,
+        height: 300,
+        crop: 'center'
+      },
+      {
+        name: 'card',
+        width: 768,
+        height: 1024,
+        crop: 'center'
+      },
+      {
+        name: 'tablet',
+        width: 1024,
+        height: null,
+        crop: 'center'
+      }
+    ]
+    // use any imageSize name
+    adminThumbnail: 'thumbnail'
+  },
+  hooks: {
+    afterRead: [
+      ({ doc }) => {
+        // add a url property on the main image
+        doc.url = `${myBucketUrl}/${doc.filename}`
+
+        // add a url property on each imageSize
+        Object.keys(doc.sizes)
+          .forEach(k => doc.sizes[k].url = `${myBucketUrl}/${doc.sizes[k].filename}`)
+      }
+    ]
+  },
+  fields: []
+};
+
+export default Media;
+```
