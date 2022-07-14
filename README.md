@@ -74,6 +74,46 @@ const Media = {
 
 export default Media;
 ```
+***Note: If you are using TS make sure to create a custom CollectionConfig Type***
+### TS Upload Config
+```js
+import { CollectionConfig } from 'payload/types';
+import { IncomingUploadType } from 'payload/dist/uploads/types';
+
+type s3 = {
+  bucket: string;
+  prefix: string;
+  commandInput: any;
+};
+
+// We used the same collection name with a S3 as a suffix you can use anything you like here make sure you use the right type while defining it.
+
+interface IncomingUploadTypeS3 extends IncomingUploadType {
+  s3: s3;
+}
+interface CollectionConfigS3 extends CollectionConfig {
+  upload: IncomingUploadTypeS3;
+}
+
+const Media: CollectionConfigS3 = {
+...
+  upload:{
+   ...
+   s3: {
+      bucket: 'my-bucket',
+      prefix: 'images/xyz', // files will be stored in bucket folder images/xyz
+      // prefix: ({ doc }) => `assets/${doc.type}`, // dynamic prefixes are possible too
+      commandInput: {
+        // optionally, use here any valid PutObjectCommandInput property
+        // https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/interfaces/putobjectcommandinput.html
+        ACL: 'public-read',  
+      },
+    },
+    ...
+  }
+...
+export default Media;
+```
 
 #### Working with image sizes
 
