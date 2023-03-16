@@ -1,30 +1,41 @@
-# Upload files to S3 in Payload CMS
+ # Upload files to S3 in Payload CMS
 
-This plugin ensures safe filenames with Payload CMS database.  
+This plugin sends uploaded files to Amazon S3 instead of writing them to the server file system.  
 Resized images are properly supported.
+
+## Why should I use this module?
+
+Payload team supports an official cloud storage plugin, different from this one.
+
+The main difference is that this plugin allows configuring collection logic on the collection itself.
+
+Payload implementation requires to define collection-specific stuff from plugins inside the global payload configuration file, which is (imho) bad design.
 
 ## Install
 
-`npm install payload-s3-upload`
+`npm install payload-s3-upload --legacy-peer-deps`
 
-## Get Started
+Payload requires `legacy-peer-deps` because of conflicts on React and GraphQL dependencies (see Payload [docs](https://payloadcms.com/docs/getting-started/installation)).
+
+## Getting Started
 
 ### Enable plugin in Payload CMS config
 
 ```js
+import { S3Client } from '@aws-sdk/client-s3';
 import { buildConfig } from 'payload/config';
 import s3Upload from 'payload-s3-upload';
 
 export default buildConfig({
   // ...
   plugins: [
-    s3Upload({
+    s3Upload(new S3Client({
       region: process.env.AWS_REGION,
       credentials: {
         accessKeyId: process.env.AWS_KEY,
         secretAccessKey: process.env.AWS_SECRET,
       },
-    }),
+    })),
   ],
 });
 ```
@@ -32,7 +43,9 @@ export default buildConfig({
 ### Configure your upload collections 
 
 ```js
-const Media = {
+import { S3UploadCollectionConfig } from 'payload-s3-upload';
+
+const Media: S3UploadCollectionConfig = {
   slug: 'media',
   upload: {
     staticURL: '/assets',
@@ -75,20 +88,19 @@ const Media = {
 export default Media;
 ```
 
-#### Working with image sizes
+### Recipe for handling different sizes
 
-If you want to configure image sizes, the plugin will automatically upload your variants on the S3 bucket too. However, in order for your API endpoint to return the correct URL for these sizes, you'll have to configure the hook on the collection level.
+This plugin automatically uploads image variants in S3.
 
-Here's an example :
+However, in order to retrieve correct URLs for the different sizes in the API, additional hooks should be implemented.
 
 ```js
+import { S3UploadCollectionConfig } from 'payload-s3-upload';
 
-const myBucketUrl = 'https://my-bucket.s3.eu-west-3.amazonaws.com/images/xyz'
-
-const Media = {
+const Media: S3UploadCollectionConfig = {
   slug: 'media',
   upload: {
-    // some properties omitted, see previous example
+    // ...
     imageSizes: [
       {
         name: 'thumbnail',
@@ -108,9 +120,8 @@ const Media = {
         height: null,
         crop: 'center'
       }
-    ]
-    // use any imageSize name
-    adminThumbnail: 'thumbnail'
+    ],
+    adminThumbnail: 'thumbnail',
   },
   hooks: {
     afterRead: [
@@ -129,3 +140,7 @@ const Media = {
 
 export default Media;
 ```
+
+## Working Example
+
+Please refer to the test files!
