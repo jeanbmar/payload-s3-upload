@@ -1,17 +1,15 @@
  # Upload files to S3 in Payload CMS
 
-This plugin ensures safe filenames with Payload CMS database.  
+This plugin sends uploaded files to Amazon S3 instead of writing them to the server file system.  
 Resized images are properly supported.
 
 ## Why should I use this module?
 
 Payload team supports an official cloud storage plugin, different from this one.
 
-However, this plugin keeps things small and focused. You don't need to install Azure dependencies if you are using AWS.
+The main difference is that this plugin allows configuring collection logic on the collection itself.
 
-Also, this plugin allows configuring collection logic on the collection itself.
-
-Payload implementation requires to define collection-specific stuff from plugins inside the global payload configuration file, which is bad design imho!
+Payload implementation requires to define collection-specific stuff from plugins inside the global payload configuration file, which is (imho) bad design.
 
 ## Install
 
@@ -145,4 +143,4 @@ export default Media;
 
 ## Working Example
 
-Please refer to test files.
+Please refer to the test files!
