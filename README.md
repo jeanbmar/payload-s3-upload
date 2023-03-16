@@ -17,7 +17,7 @@ Payload implementation requires to define collection-specific stuff from plugins
 
 Payload requires `legacy-peer-deps` because of conflicts on React and GraphQL dependencies (see Payload [docs](https://payloadcms.com/docs/getting-started/installation)).
 
-## Get Started
+## Getting Started
 
 ### Enable plugin in Payload CMS config
 
