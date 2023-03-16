@@ -1,16 +1,59 @@
 {
   "name": "payload-s3-upload",
-  "version": "1.1.2",
-  "main": "lib/index.js",
+  "version": "2.0.0",
+  "description": "Send Payload CMS uploads to Amazon S3",
+  "keywords": [
+    "storage",
+    "s3",
+    "payload",
+    "payloadcms",
+    "payload-cms",
+    "payloadplugin",
+    "payload-plugin"
+  ],
+  "main": "dist/index.js",
+  "files": [
+    "dist/**/*"
+  ],
   "author": "Jean-Baptiste Martin",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeanbmar/payload-s3-upload.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jeanbmar/payload-s3-upload/issues"
+  },
+  "homepage": "https://github.com/jeanbmar/payload-s3-upload#readme",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "watch": "tsc -w",
+    "test": "ts-node -T ./test/plugin.test.ts"
+  },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.54.1",
     "sanitize-filename": "^1.6.3"
   },
+  "peerDependencies": {
+    "@aws-sdk/client-s3": "^3.x.x",
+    "payload": "^1.x.x"
+  },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.292.0",
+    "@typescript-eslint/eslint-plugin": "^5.55.0",
+    "@typescript-eslint/parser": "^5.55.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.2.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.22.1"
+    "eslint": "^8.36.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "express": "^4.18.2",
+    "graphql": "^16.6.0",
+    "mongodb-memory-server": "^8.12.0",
+    "payload": "^1.6.22",
+    "prettier": "^2.8.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
   }
 }
