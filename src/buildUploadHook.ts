@@ -12,7 +12,8 @@ const getFilesToUpload: CollectionBeforeChangeHook = ({
   data,
   req,
 }): File[] => {
-  const reqFile = req.files && req.files.file ? req.files.file : req.file;
+  const reqFile = req.files?.file ?? req.file ?? null;
+  if (reqFile == null) return [];
   const files: File[] = [
     {
       filename: data.filename,

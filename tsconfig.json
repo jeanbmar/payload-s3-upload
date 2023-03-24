@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
     "outDir": "./dist",
     "removeComments": true,
-    "target": "es6",
-    "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "target": "es6"
   },
   "include": ["src/**/*", "test/**/*"],
   "exclude": ["node_modules", "dist"]

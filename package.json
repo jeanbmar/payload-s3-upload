@@ -1,6 +1,6 @@
 {
   "name": "payload-s3-upload",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Send Payload CMS uploads to Amazon S3",
   "keywords": [
     "storage",

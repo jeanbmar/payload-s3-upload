@@ -3,7 +3,7 @@ import buildUploadHook from './buildUploadHook';
 import buildDeleteHook from './buildDeleteHook';
 import { S3UploadCollectionConfig } from './types';
 
-const pluginPayloadS3Upload = (s3Client: S3Client | S3ClientConfig) => {
+const pluginPayloadS3Upload = (s3Client?: S3Client | S3ClientConfig) => {
   const client =
     s3Client instanceof S3Client ? s3Client : new S3Client(s3Client);
   return (payloadConfig) => {
