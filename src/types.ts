@@ -4,8 +4,8 @@ import { IncomingUploadType } from 'payload/dist/uploads/types';
 
 export type S3UploadConfig = {
   bucket: string;
-  prefix: string | Function;
-  commandInput: any;
+  prefix?: string | Function;
+  commandInput?: any;
 };
 
 export type S3IncomingUploadType = {
@@ -18,6 +18,6 @@ export type S3UploadCollectionConfig = {
 
 export type File = {
   filename: string;
-  mimeType: string;
+  mimeType?: string;
   buffer: Buffer;
 };
