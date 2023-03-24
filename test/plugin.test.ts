@@ -68,5 +68,34 @@ test('tests', async (t) => {
     assert(response.ok);
   });
 
+  await t.test('update a document', async () => {
+    // https://github.com/jeanbmar/payload-s3-upload/issues/10
+    // @ts-ignore
+    const form = new FormData();
+    form.append(
+      'file',
+      // @ts-ignore
+      new Blob([dogFile], { type: 'image/png' }),
+      'goodboy.png'
+    );
+    form.append('type', 'images/dogs');
+    let response = await fetch('http://localhost:3000/api/media', {
+      method: 'POST',
+      body: form,
+    });
+    const createData = await response.json();
+    const id = createData.doc?.id;
+    response = await fetch(`http://localhost:3000/api/media/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'images/cars',
+      }),
+    });
+    assert(response.ok);
+    const updateData = await response.json();
+    assert.strictEqual(updateData.doc?.type, 'images/cars');
+  });
+
   await stop();
 });
