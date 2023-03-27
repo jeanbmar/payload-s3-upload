@@ -21,7 +21,7 @@ const getFilesToUpload: CollectionBeforeChangeHook = ({
       buffer: reqFile.data,
     },
   ];
-  if (data.mimeType.includes("image") && data.sizes != null) {
+  if (data.mimeType?.includes('image') && data.sizes != null) {
     Object.entries<FileData>(data.sizes).forEach(([key, sizeData]) => {
       files.push({
         filename: sizeData.filename,
