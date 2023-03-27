@@ -11,7 +11,7 @@ import { S3UploadCollectionConfig } from './types';
 const getFilesToDelete: CollectionAfterDeleteHook = (afterDeleteOptions) => {
   const { doc } = afterDeleteOptions;
   const files: string[] = [doc.filename];
-  if (doc.sizes != null) {
+  if (doc.mimeType?.includes('image') && doc.sizes != null) {
     Object.values<FileData>(doc.sizes).forEach((fileData) => {
       files.push(fileData.filename);
     });
