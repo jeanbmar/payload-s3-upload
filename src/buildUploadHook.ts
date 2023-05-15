@@ -28,9 +28,9 @@ const getFilesToUpload: CollectionBeforeChangeHook = ({
 
       if (buffer !== undefined || filename !== null) {
         files.push({
-          filename: sizeData.filename,
+          buffer,
+          filename,
           mimeType: data.mimeType,
-          buffer: req.payloadUploadSizes[key],
         });
       }
     });
