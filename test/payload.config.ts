@@ -49,6 +49,20 @@ export default buildConfig({
         },
         adminThumbnail: ({ doc }) =>
           `https://cdn.payloadcms.com/${doc.type}/${doc.filename}`,
+        imageSizes: [
+          {
+            name: 'small',
+            width: 400,
+            height: 400,
+            position: 'centre',
+          },
+          {
+            name: 'medium',
+            width: 800,
+            height: undefined,
+            position: 'centre',
+          },
+        ],
       },
     } as S3UploadCollectionConfig,
   ],

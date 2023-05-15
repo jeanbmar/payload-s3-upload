@@ -23,11 +23,16 @@ const getFilesToUpload: CollectionBeforeChangeHook = ({
   ];
   if (data.mimeType?.includes('image') && data.sizes != null) {
     Object.entries<FileData>(data.sizes).forEach(([key, sizeData]) => {
-      files.push({
-        filename: sizeData.filename,
-        mimeType: data.mimeType,
-        buffer: req.payloadUploadSizes[key],
-      });
+      const buffer = req.payloadUploadSizes[key];
+      const { filename } = sizeData;
+
+      if (buffer !== undefined || filename !== null) {
+        files.push({
+          filename: sizeData.filename,
+          mimeType: data.mimeType,
+          buffer: req.payloadUploadSizes[key],
+        });
+      }
     });
   }
   return files;
