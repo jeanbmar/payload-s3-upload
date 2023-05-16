@@ -13,7 +13,7 @@ const getFilesToDelete: CollectionAfterDeleteHook = (afterDeleteOptions) => {
   const files: string[] = [doc.filename];
   if (doc.mimeType?.includes('image') && doc.sizes != null) {
     Object.values<FileData>(doc.sizes).forEach((fileData) => {
-      files.push(fileData.filename);
+      if (fileData.filename != null) files.push(fileData.filename);
     });
   }
   return files;
