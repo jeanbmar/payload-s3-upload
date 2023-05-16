@@ -26,7 +26,7 @@ const getFilesToUpload: CollectionBeforeChangeHook = ({
       const buffer = req.payloadUploadSizes[key];
       const { filename } = sizeData;
 
-      if (buffer !== undefined || filename !== null) {
+      if (buffer != null || filename != null) {
         files.push({
           buffer,
           filename,
