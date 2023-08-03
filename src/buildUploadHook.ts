@@ -12,7 +12,7 @@ const getFilesToUpload: CollectionBeforeChangeHook = ({
   data,
   req,
 }): File[] => {
-  const reqFile = req.files?.file ?? req.file ?? null;
+  const reqFile = req.files?.file ?? null;
   if (reqFile == null) return [];
   const files: File[] = [
     {
@@ -51,8 +51,8 @@ const buildUploadHook = (
     for (const file of files) {
       let key = file.filename;
       const bucket = s3.bucket instanceof Function
-            ? s3.bucket({ doc: beforeChangeOptions.data })
-            : s3.bucket;
+        ? s3.bucket({ doc: beforeChangeOptions.data })
+        : s3.bucket;
       if (s3.prefix) {
         key =
           s3.prefix instanceof Function
