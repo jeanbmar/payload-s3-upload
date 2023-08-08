@@ -47,7 +47,7 @@ const buildUploadHook = (
     beforeChangeOptions
   ) => {
     const files = getFilesToUpload(beforeChangeOptions);
-    const doc = Object.assign(structuredClone(beforeChangeOptions.originalDoc), beforeChangeOptions.data);
+    const doc = !!beforeChangeOptions.originalDoc ? Object.assign(structuredClone(beforeChangeOptions.originalDoc), beforeChangeOptions.data) : beforeChangeOptions.data;
     // eslint-disable-next-line no-restricted-syntax
     for (const file of files) {
       let key = file.filename;
