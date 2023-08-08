@@ -47,16 +47,17 @@ const buildUploadHook = (
     beforeChangeOptions
   ) => {
     const files = getFilesToUpload(beforeChangeOptions);
+    const doc = Object.assign(structuredClone(beforeChangeOptions.originalDoc), beforeChangeOptions.data);
     // eslint-disable-next-line no-restricted-syntax
     for (const file of files) {
       let key = file.filename;
       const bucket = s3.bucket instanceof Function
-        ? s3.bucket({ doc: beforeChangeOptions.data })
+        ? s3.bucket({ doc })
         : s3.bucket;
       if (s3.prefix) {
         key =
           s3.prefix instanceof Function
-            ? path.posix.join(s3.prefix({ doc: beforeChangeOptions.data }), key)
+            ? path.posix.join(s3.prefix({ doc }), key)
             : path.posix.join(s3.prefix, key);
       }
       let putObjectCommandInput: PutObjectCommandInput = {
