@@ -29,6 +29,9 @@ const buildDeleteHook = (
     // eslint-disable-next-line no-restricted-syntax
     for (const filename of filenames) {
       let key = filename;
+      const bucket = s3.bucket instanceof Function
+        ? s3.bucket({ doc: afterDeleteOptions.doc })
+        : s3.bucket;
       if (s3.prefix) {
         key =
           s3.prefix instanceof Function
@@ -37,7 +40,7 @@ const buildDeleteHook = (
       }
       await s3Client.send(
         new DeleteObjectCommand({
-          Bucket: s3.bucket,
+          Bucket: bucket,
           Key: key,
         } as DeleteObjectCommandInput)
       );

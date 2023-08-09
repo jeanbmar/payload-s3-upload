@@ -12,7 +12,7 @@ const getFilesToUpload: CollectionBeforeChangeHook = ({
   data,
   req,
 }): File[] => {
-  const reqFile = req.files?.file ?? req.file ?? null;
+  const reqFile = req.files?.file ?? null;
   if (reqFile == null) return [];
   const files: File[] = [
     {
@@ -47,17 +47,21 @@ const buildUploadHook = (
     beforeChangeOptions
   ) => {
     const files = getFilesToUpload(beforeChangeOptions);
+    const doc = !!beforeChangeOptions.originalDoc ? Object.assign(structuredClone(beforeChangeOptions.originalDoc), beforeChangeOptions.data) : beforeChangeOptions.data;
     // eslint-disable-next-line no-restricted-syntax
     for (const file of files) {
       let key = file.filename;
+      const bucket = s3.bucket instanceof Function
+        ? s3.bucket({ doc })
+        : s3.bucket;
       if (s3.prefix) {
         key =
           s3.prefix instanceof Function
-            ? path.posix.join(s3.prefix({ doc: beforeChangeOptions.data }), key)
+            ? path.posix.join(s3.prefix({ doc }), key)
             : path.posix.join(s3.prefix, key);
       }
       let putObjectCommandInput: PutObjectCommandInput = {
-        Bucket: s3.bucket,
+        Bucket: bucket,
         Key: key,
         Body: file.buffer,
       };
